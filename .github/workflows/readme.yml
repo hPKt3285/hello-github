@@ -1,0 +1,26 @@
+name: README checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show recent commits
+        run: git log --oneline -5
+
+      - name: Check README structure
+        run: |
+          test -f README.md
+          grep -q '^# ' README.md
+          grep -q '^## ' README.md
+          if grep -nE ' +$' README.md; then
+            echo "README contains trailing whitespace"
+            exit 1
+          fi
+          echo "README looks fine"
