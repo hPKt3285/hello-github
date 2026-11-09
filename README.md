@@ -36,6 +36,10 @@ section, and contains no trailing whitespace. The checks themselves live in
 same code instead of two copies that drift apart. The workflow is deliberately small — it
 is a place to learn how Actions reports failures, not a real test suite.
 
+The same script runs in two jobs: `readme` on `ubuntu-latest`, and `readme-windows` on
+`windows-latest` with `shell: bash`. The second job exists to catch line-ending or shell
+differences that an Ubuntu-only run would never see; both currently pass.
+
 ## Notes
 
 - Default branch: `main`
