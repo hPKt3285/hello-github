@@ -24,17 +24,21 @@ over SSH but does not provide a shell.
 The same checks that CI runs can be executed on any machine with Bash:
 
 ```bash
-test -f README.md && grep -q '^# ' README.md && echo "README looks fine"
+bash scripts/check-readme.sh
 ```
 
 ## Continuous integration
 
 [`.github/workflows/readme.yml`](.github/workflows/readme.yml) runs on every push and
 pull request. It checks that the README exists, still has a title and at least one
-section, and contains no trailing whitespace. The workflow is deliberately small — it is
-a place to learn how Actions reports failures, not a real test suite.
+section, and contains no trailing whitespace. The checks themselves live in
+[`scripts/check-readme.sh`](scripts/check-readme.sh), so CI and a local run execute the
+same code instead of two copies that drift apart. The workflow is deliberately small — it
+is a place to learn how Actions reports failures, not a real test suite.
 
 ## Notes
 
 - Default branch: `main`
 - Commits are signed with an SSH key, so they show up as *Verified* on GitHub
+- [`.gitattributes`](.gitattributes) keeps shell scripts at LF, so the same file runs on
+  Windows and on the Ubuntu runner

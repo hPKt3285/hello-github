@@ -15,12 +15,4 @@ jobs:
         run: git log --oneline -5
 
       - name: Check README structure
-        run: |
-          test -f README.md
-          grep -q '^# ' README.md
-          grep -q '^## ' README.md
-          if grep -nE ' +$' README.md; then
-            echo "README contains trailing whitespace"
-            exit 1
-          fi
-          echo "README looks fine"
+        run: bash scripts/check-readme.sh
