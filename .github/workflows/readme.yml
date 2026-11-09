@@ -16,3 +16,13 @@ jobs:
 
       - name: Check README structure
         run: bash scripts/check-readme.sh
+
+  readme-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check README structure
+        shell: bash
+        run: bash scripts/check-readme.sh
